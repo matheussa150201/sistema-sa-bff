@@ -1,6 +1,6 @@
 package com.sistema.sa.bff.controller;
 
-import com.sistema.sa.bff.model.Usuario;
+import com.sistema.sa.bff.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +18,13 @@ public class LoginController {
 
     @GetMapping("/entrar")
     public ResponseEntity login(@RequestParam String email, @RequestParam String senha) {
-       try {
-        Usuario usuario = loginService.login(email, senha);
-        return ResponseEntity.status(HttpStatus.OK).body(usuario);
-       }catch(Exception e){
-           return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        try {
+            boolean usuario = loginService.login(email, senha);
+            return ResponseEntity.status(HttpStatus.OK).body(usuario);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
-       }
+        }
 
     }
 }
